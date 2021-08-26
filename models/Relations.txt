@@ -1,0 +1,2 @@
+Article -> Category -- One to one -- belongsTo
+Category -> n*Articles -- One to many -- hasMany
