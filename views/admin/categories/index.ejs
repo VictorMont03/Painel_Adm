@@ -14,14 +14,18 @@
             </tr>
         </thead>
         <tbody>
-            <% categories.forEach((categorie) => { %>
+            <% categories.forEach((category) => { %>
             <tr>
-                <th><%= categorie.id %></th>
-                <th><%= categorie.title %></th>
-                <th><%= categorie.slug %></th>
+                <th><%= category.id %></th>
+                <th><%= category.title %></th>
+                <th><%= category.slug %></th>
                 <th>
-                    <button class="btn btn-warning" type="button">Editar</button>
-                    <button class="btn btn-danger" type="button">Deletar</button>
+                    <a href="/admin/categories/edit/<%= category.id %>" class="btn btn-warning" type="button">Editar</a>
+                         
+                    <form action="/categories/delete" method="post" style="display: inline;" onsubmit="deleteConfirmation(event, this)">
+                        <input type="hidden" name="id" value="<%= category.id %>">
+                        <button class="btn btn-danger">Deletar</button>
+                    </form>        
                 </th>
             </tr>
             <% }) %>
@@ -31,3 +35,12 @@
 </div>
 
 <%- include('../../partials/footer.ejs') %>
+
+<script>
+    function deleteConfirmation(event, form){
+        event.preventDefault();
+        if(confirm("Deseja deletar categoria?")){
+            form.submit();
+        }
+    }
+</script>
