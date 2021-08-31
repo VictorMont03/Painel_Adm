@@ -1,9 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const Category = require('../../models/Category');
+const Article = require('../../models/Article');
+const slugify = require('slugify');
 
-router.get("/artigos", (req, res) => {
-    res.send("Artigos");
+router.get("/admin/articles", (req, res) => {
+    Article.findAll({
+        include: [{model: Category}]
+    }).then((articles) => {
+        res.render("admin/articles", {articles: articles}); 
+     });
 });
 
 router.get("/admin/articles/new", (req, res) => {
@@ -12,5 +18,41 @@ router.get("/admin/articles/new", (req, res) => {
     });
     
 });
+
+router.post("/articles/delete", (req, res) => {
+    var id = req.body.id;
+    if(id != undefined){
+        if(!isNaN(id)){
+            Article.destroy({
+                where: {id: id},
+            }).then(() => {
+                res.redirect("/admin/articles");
+            });
+        }else{
+            res.redirect("/admin/articles?erro");
+        }
+    }else{
+        res.redirect("/admin/articles?erro");
+    }
+})
+
+router.post("/articles/save", (req, res) => {
+    var title = req.body.title;
+    var body = req.body.body;
+    var category = req.body.category;
+    if(title!=undefined) {
+        Article.create({
+            title: title,    
+            slug: slugify(title),
+            body: body,
+            categoryId: category
+        }).then(() => {
+            res.redirect('/admin/articles');
+        });
+    }else{
+        res.rendirect("/admin/articles/new");
+    }
+})
+
 
 module.exports = router;

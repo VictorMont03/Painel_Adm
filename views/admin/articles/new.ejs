@@ -1,13 +1,13 @@
 <%- include ('../../partials/header.ejs') %>
 <%- include ('../../partials/navbar.ejs') %>
     <div class="container">
-        <hr>
+       <br />
         <div class="card">
             <div class="card-header">
                  <h2>Novo Artigo</h2>
             </div>
             <div class="card-body">
-              <form action="/categories/save" method="post">
+              <form action="/articles/save" method="post">
                     <input type="text" class="form-control" name="title" placeholder="Titulo do Artigo">
                     <br>
                     <textarea name="body" class="form-control" id="article" cols="30" rows="10" placeholder="Digite o seu artigo"></textarea>
@@ -22,8 +22,10 @@
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>  
             </div>
+           
             
         </div>
+        <br/>
         
     </div>
 <%- include('../../partials/footer.ejs') %>

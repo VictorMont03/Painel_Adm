@@ -1,5 +1,30 @@
 <%- include ('partials/header.ejs') %>
+<%- include ('partials/homeNavbar.ejs') %>
 <body>
-    <h1>Painel Administrativo</h1>
+    <div class="container">
+        <br/>
+        <div class="jumbotron form-control bg-light" style="height: 275px; border: 0;">
+            <h1 class="display-4">Bem vindo ao meu blog!</h1>
+            <p class="lead">Esta página foi desenvolvida para fins educacionais e utlizada para o aprendizado acerca do desenvolvimento web.</p>
+            <hr class="my-4">
+            <p>Desenvolvido por: &copyVictor Monteiro</p>
+            <a class="btn btn-primary btn-lg" href="https://github.com/VictorMont03" targte="_blank" role="button">Sobre mim</a>
+        </div>
+        <br/>
+        <% articles.forEach((article) => { %>
+            <div class="card">
+                <div class="card-header">
+                    <%= article.title %>
+                </div>
+                <div class="card-body">
+                    <form action="/<%= article.slug %>" method="get">
+                       <button class="btn btn-primary">Ler artigo</button>
+                    </form>
+                    
+                </div>
+            </div>
+            <br/>
+        <% }) %>
+    </div>
 </body>
 <%- include('partials/footer.ejs') %>
