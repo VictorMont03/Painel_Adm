@@ -1,0 +1,59 @@
+<%- include ('../../partials/header.ejs') %>
+<%- include ('../../partials/homeNavbar.ejs') %>
+<body>
+    <div class="container">
+        <br/>
+        <div class="jumbotron form-control bg-light" style="height: 275px; border: 0;">
+            <h1 class="display-4">Bem vindo ao meu blog!</h1>
+            <p class="lead">Páginas de artigos.</p>
+            <hr class="my-4">
+            <p>Desenvolvido por: &copyVictor Monteiro</p>
+            <a class="btn btn-primary btn-lg" href="https://github.com/VictorMont03" targte="_blank" role="button">Sobre mim</a>
+        </div>
+        <br/>
+        <% results.articles.rows.forEach((article) => { %>
+            <div class="card">
+                <div class="card-header">
+                    <%= article.title %>
+                </div>
+                <div class="card-body">
+                    <form action="/<%= article.slug %>" method="get">
+                       <button class="btn btn-primary">Ler artigo</button>
+                    </form>
+                    
+                </div>
+            </div>
+            <br/>
+        <% }) %>
+        <!--Tornar dinamico o aumento de numero de paginas-->
+        <nav aria-label="..." style="float: right;">
+            <ul class="pagination">
+              <% if(results.page == 1){ %>
+              <li class="page-item disabled">
+                <a class="page-link" href="#">Anterior</a>
+              </li>
+              <% }else{ %>
+                <li class="page-item ">
+                    <a class="page-link " href="/articles/page/<%= results.page - 1 %>">Anterior</a>
+                </li>
+                <% } %>
+              <li class="page-item"><a class="page-link" href="/articles/page/1">1</a></li>
+              <li class="page-item">
+                <a class="page-link" href="/articles/page/2">2</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="/articles/page/3">3</a></li>
+              <li class="page-item"><a class="page-link" href="/articles/page/4">4</a></li>
+              <% if(results.next){ %>
+              <li class="page-item">
+                <a class="page-link" href="/articles/page/<%= results.page + 1 %>">Próximo</a>
+              </li>
+              <% }else{ %>
+                <li class="page-item disabled">
+                    <a class="page-link " href="#">Next</a>
+                </li>
+                <% } %>
+            </ul>
+          </nav>
+    </div>
+</body>
+<%- include('../../partials/footer.ejs') %>
